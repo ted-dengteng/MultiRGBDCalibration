@@ -26,6 +26,9 @@
     <ClCompile Include="App\RGBDCamera.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="App\RGBDCameraPairExtrinsicSolver.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\dirent.h">
@@ -47,6 +50,9 @@
       <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="App\RGBDCamera.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="App\RGBDCameraPairExtrinsicSolver.h">
       <Filter>App</Filter>
     </ClInclude>
   </ItemGroup>

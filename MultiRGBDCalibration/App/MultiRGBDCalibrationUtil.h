@@ -89,4 +89,7 @@ struct CameraExtrinsic
 
 typedef CameraExtrinsic<float> CameraExtrinsicF;
 
+typedef std::vector<cv::Point2f> corner2d_t;
+typedef std::vector<cv::Point3f> corner3d_t;
+
 #endif//__MULTI_RGBD_CALIBRATION_UTIL_H__

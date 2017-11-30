@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="App\MultiRGBDCalibrationApp.cpp" />
     <ClCompile Include="App\RGBDCamera.cpp" />
+    <ClCompile Include="App\RGBDCameraPairExtrinsicSolver.cpp" />
     <ClCompile Include="MultiRGBDCalibrationMain.cpp" />
     <ClCompile Include="Utility\ini.c" />
     <ClCompile Include="Utility\INIReader.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="App\MultiRGBDCalibrationApp.h" />
     <ClInclude Include="App\MultiRGBDCalibrationUtil.h" />
     <ClInclude Include="App\RGBDCamera.h" />
+    <ClInclude Include="App\RGBDCameraPairExtrinsicSolver.h" />
     <ClInclude Include="Utility\dirent.h" />
     <ClInclude Include="Utility\ini.h" />
     <ClInclude Include="Utility\INIReader.h" />

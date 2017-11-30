@@ -87,7 +87,7 @@ void MultiRGBDCalibrationApp::_loadData()
 
 void MultiRGBDCalibrationApp::_calibrate()
 {
-
+	
 }
 
 void MultiRGBDCalibrationApp::_saveResults()

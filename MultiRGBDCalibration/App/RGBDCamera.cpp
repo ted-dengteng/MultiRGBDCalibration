@@ -42,6 +42,16 @@ void RGBDCamera::clear()
 	}
 	m_corners3d.clear();
 
+	if (m_cameraMatrix.data != NULL)
+	{
+		m_cameraMatrix.release();
+	}
+
+	if (m_distCoeffs.data != NULL)
+	{
+		m_distCoeffs.release();
+	}
+
 	m_numFrame = 0;
 }
 
@@ -54,7 +64,7 @@ void RGBDCamera::init(const std::vector<std::string> colorFilenames,
 {
 	clear();
 
-	m_numFrame = colorFilenames.size();
+	m_numFrame = (int) colorFilenames.size();
 
 	_loadColor(colorFilenames);
 	_loadDepth(depthFilenames);
@@ -69,12 +79,20 @@ void RGBDCamera::init(const std::vector<std::string> colorFilenames,
 	}
 	else {
 		m_intrinsic->copyFrom(intrinsic);
+		m_cameraMatrix = cv::Mat::eye(3,3,CV_64F);
+		m_distCoeffs = cv::Mat(8, 1, CV_64F);
+		m_cameraMatrix.at<double>(0, 0) = m_intrinsic->fx;
+		m_cameraMatrix.at<double>(1, 1) = m_intrinsic->fy;
+		m_cameraMatrix.at<double>(0, 2) = m_intrinsic->cx;
+		m_cameraMatrix.at<double>(1, 2) = m_intrinsic->cy;
+		for (int i = 0; i < 5; i++)
+			m_distCoeffs.at<double>(i) = m_intrinsic->dist[i];
 	}
 }
 
 void RGBDCamera::_loadColor(const std::vector<std::string> colorFilenames)
 {
-	int numColor = colorFilenames.size();
+	int numColor = (int) colorFilenames.size();
 
 	m_color.resize(numColor);
 	for (int frameId = 0; frameId < numColor; frameId++)
@@ -95,7 +113,7 @@ void RGBDCamera::_loadColor(const std::vector<std::string> colorFilenames)
 
 void RGBDCamera::_loadDepth(const std::vector<std::string> depthFilenames)
 {
-	int numDepth = depthFilenames.size();
+	int numDepth = (int) depthFilenames.size();
 
 	m_depth.resize(numDepth);
 	for (int frameId = 0; frameId < numDepth; frameId++)
@@ -251,7 +269,7 @@ void RGBDCamera::_computeIntrinsic(const cv::Size patternSize, const float& patt
 	cv::Mat disCoeffs = cv::Mat::zeros(8, 1, CV_64F);
 	std::vector<corner3d_t> objectPoints;
 	objectPoints.resize(corners2dForIntrinsic.size(), corner3dRef);
-	bool ok = cv::calibrateCamera(objectPoints,
+	cv::calibrateCamera(objectPoints,
 		corners2dForIntrinsic,
 		cv::Size(imageWidth, imageHeight),
 		cameraMatrix,
@@ -271,7 +289,7 @@ void RGBDCamera::_computeIntrinsic(const cv::Size patternSize, const float& patt
 			disCoeffs,
 			corner2dPerFrame);
 		
-		err = cv::norm(corners2dForIntrinsic[frameId], corner2dPerFrame, CV_L2);
+		err = (float) cv::norm(corners2dForIntrinsic[frameId], corner2dPerFrame, CV_L2);
 
 		int n = (int)objectPoints[frameId].size();
 		totalError += err * err;
@@ -284,12 +302,15 @@ void RGBDCamera::_computeIntrinsic(const cv::Size patternSize, const float& patt
 	// update result
 	m_intrinsic->w = imageWidth;
 	m_intrinsic->h = imageHeight;
-	m_intrinsic->fx = cameraMatrix.at<double>(0, 0);
-	m_intrinsic->fy = cameraMatrix.at<double>(1, 1);
-	m_intrinsic->cx = cameraMatrix.at<double>(0, 2);
-	m_intrinsic->cy = cameraMatrix.at<double>(1, 2);
+	m_intrinsic->fx = (float) cameraMatrix.at<double>(0, 0);
+	m_intrinsic->fy = (float) cameraMatrix.at<double>(1, 1);
+	m_intrinsic->cx = (float) cameraMatrix.at<double>(0, 2);
+	m_intrinsic->cy = (float) cameraMatrix.at<double>(1, 2);
 	for (int i = 0; i < 5; i++)
-		m_intrinsic->dist[i] = disCoeffs.at<double>(i);
+		m_intrinsic->dist[i] = (float) disCoeffs.at<double>(i);
 
 	m_intrinsic->printParam();
+
+	m_cameraMatrix = cameraMatrix;
+	m_distCoeffs = disCoeffs;
 }

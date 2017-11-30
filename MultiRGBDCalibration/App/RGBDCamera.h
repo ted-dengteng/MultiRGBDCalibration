@@ -16,9 +16,6 @@
 class RGBDCamera
 {
 public:
-	typedef std::vector<cv::Point2f> corner2d_t;
-	typedef std::vector<cv::Point3f> corner3d_t;
-
 	RGBDCamera();
 	virtual ~RGBDCamera();
 
@@ -30,6 +27,49 @@ public:
 		const float& patternLength,
 		const CameraIntrinsicF* intrinsic = NULL);
 
+	const int getNumFrame() const
+	{
+		return m_numFrame;
+	}
+	int getNumFrame()
+	{
+		return m_numFrame;
+	}
+
+	const cv::Mat getCameraMatrix() const
+	{
+		return m_cameraMatrix;
+	}
+	cv::Mat getCameraMatrix()
+	{
+		return m_cameraMatrix;
+	}
+	const cv::Mat getDistCoeffs() const
+	{
+		return m_distCoeffs;
+	}
+	cv::Mat getDistCoeffs()
+	{
+		return m_distCoeffs;
+	}
+
+	corner2d_t& getCorner2d(int frameId)
+	{
+		return m_corners2d[frameId];
+	}
+	corner3d_t& getCorner3d(int frameId)
+	{
+		return m_corners3d[frameId];
+	}
+
+
+	bool isPatternDetected(int frameId)
+	{
+		if (frameId < 0 || frameId >= m_numFrame)
+			return false;
+		return m_bPatternDetected[frameId];
+	}
+
 private:
 	void _loadColor(const std::vector<std::string> colorFilenames);
 	void _loadDepth(const std::vector<std::string> depthFilenames);
@@ -39,6 +79,8 @@ private:
 
 	int m_numFrame;
 	CameraIntrinsicF* m_intrinsic;
+	cv::Mat m_cameraMatrix;
+	cv::Mat m_distCoeffs;
 
 	// frameId
 	std::vector<bool> m_bPatternDetected;
