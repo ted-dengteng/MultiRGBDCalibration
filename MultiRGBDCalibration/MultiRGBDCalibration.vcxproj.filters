@@ -5,5 +5,49 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{2a9e74c0-5c3b-4700-80c2-ff5bc0ec044b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{4101709b-7b26-435c-aae7-d15974ff9a8d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MultiRGBDCalibrationMain.cpp" />
+    <ClCompile Include="Utility\ini.c">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\INIReader.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="App\MultiRGBDCalibrationApp.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="App\RGBDCamera.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utility\dirent.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\ini.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\INIReader.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="App\MultiRGBDCalibrationApp.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="App\MultiRGBDCalibrationConfig.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="App\MultiRGBDCalibrationUtil.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="App\RGBDCamera.h">
+      <Filter>App</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

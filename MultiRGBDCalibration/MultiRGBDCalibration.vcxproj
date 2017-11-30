@@ -97,11 +97,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_AMD64_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x64\vc12\lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opencv_core300d.lib;opencv_highgui300d.lib;opencv_imgproc300d.lib;opencv_calib3d300d.lib;opencv_features2d300d.lib;opencv_imgcodecs300d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -139,6 +142,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App\MultiRGBDCalibrationApp.cpp" />
+    <ClCompile Include="App\RGBDCamera.cpp" />
+    <ClCompile Include="MultiRGBDCalibrationMain.cpp" />
+    <ClCompile Include="Utility\ini.c" />
+    <ClCompile Include="Utility\INIReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App\MultiRGBDCalibrationConfig.h" />
+    <ClInclude Include="App\MultiRGBDCalibrationApp.h" />
+    <ClInclude Include="App\MultiRGBDCalibrationUtil.h" />
+    <ClInclude Include="App\RGBDCamera.h" />
+    <ClInclude Include="Utility\dirent.h" />
+    <ClInclude Include="Utility\ini.h" />
+    <ClInclude Include="Utility\INIReader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
